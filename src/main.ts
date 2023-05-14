@@ -354,9 +354,10 @@ function main(): void
       return;
 
     let data: Buffer;
+    let obj;
     try
     {
-      const obj = JSON.parse(text);
+      obj = JSON.parse(text);
       const obj2 = decodeToMap(obj);
       data = Bencode.encode(obj2);
     }
@@ -367,7 +368,7 @@ function main(): void
     }
 
     const blob = new Blob([data], {type: 'application/octet-stream'});
-    FileSaver.saveAs(blob, "file");
+    FileSaver.saveAs(blob, (obj.info?.name || "file") + ".torrent");
   };
 
   const saveBtn = document.getElementById("saveButton")!;
